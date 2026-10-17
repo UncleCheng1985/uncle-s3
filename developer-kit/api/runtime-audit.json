@@ -1,0 +1,123 @@
+{
+  "audited": "2026-10-18",
+  "board": "ESP32-S3 Joystick v0.2",
+  "api": 1,
+  "functions": [
+    "asset.image",
+    "asset.info",
+    "asset.release",
+    "asset.sound",
+    "audio.loop",
+    "audio.play",
+    "audio.play_file",
+    "audio.stop_all",
+    "data.read",
+    "data.size",
+    "gfx.blit",
+    "gfx.blit_clean",
+    "gfx.blit_frame",
+    "gfx.clear",
+    "gfx.hold_present",
+    "gfx.invalidate",
+    "gfx.rect",
+    "gfx.restore",
+    "gfx.round_rect",
+    "gfx.text",
+    "gfx.text_big",
+    "gfx.text_medium",
+    "gfx.text_utf8",
+    "gfx.text_width",
+    "input.direction",
+    "input.pressed",
+    "input.serial",
+    "print",
+    "storage.get",
+    "storage.set",
+    "storage.word_get",
+    "storage.word_set",
+    "system.day",
+    "system.exit",
+    "system.time_ms",
+    "vocab.info",
+    "vocab.learned",
+    "vocab.open",
+    "vocab.read",
+    "vocab.ready",
+    "vocab.review",
+    "vocab.set",
+    "vocab.state",
+    "vocab.stats"
+  ],
+  "firmware_sha256": "feb61434fbf3e64938cfcbf6b41dd8c91216318526f4e5c44990bf2c2b346d92",
+  "source_fingerprints": [
+    {
+      "path": "src/game_runtime.cpp",
+      "sha256": "dc9f2a70fba0bd2e7bb6c03084678c439f0c2c2562f4e38715b49e67b777adb5"
+    },
+    {
+      "path": "src/game_runtime.h",
+      "sha256": "4a3aed100f8afd144b49a2b3cab731f474f364ff767584d08e8736dadaed69ac"
+    },
+    {
+      "path": "src/game_manifest.cpp",
+      "sha256": "180b53e7d9d673d437251073958a6bb5714bb82440dd677a4e42a085dda19b29"
+    },
+    {
+      "path": "src/game_manifest.h",
+      "sha256": "07589a857aa6e53204701a4ec4b01f45b7cd070aaf24c9ccde354cf78959f4ac"
+    },
+    {
+      "path": "src/game_assets.cpp",
+      "sha256": "47d41722a2af1001810def9afa29899b2bb9cce74cb533ae1f0ba1b43d0e9735"
+    },
+    {
+      "path": "src/game_assets.h",
+      "sha256": "78077095a90667aa1f75a3c20d4ac13f9e68195e3f0601edf7b7cf6b292016eb"
+    },
+    {
+      "path": "src/game_audio.cpp",
+      "sha256": "e77558ec0fce4e6c473121f9f536a0f79e20e9693e536ddff61705aaeee52821"
+    },
+    {
+      "path": "src/game_audio.h",
+      "sha256": "dd2d4b65a0b3c80f9df457bf41b2ab931d789de84b43a53d9ae53e4e4e33c98b"
+    },
+    {
+      "path": "src/game_catalog.cpp",
+      "sha256": "bde3008adbaa72213f767c0db820f8b7762e06848ca31339147e1c1764b2a5b9"
+    },
+    {
+      "path": "src/game_cover_format.h",
+      "sha256": "3358bd7241d8b59022ba4afe46615a6560f27af8b0951944c06fadb1c7922c60"
+    },
+    {
+      "path": "src/tf_service.cpp",
+      "sha256": "6e1e036dd69bf0b23cbdfb5d980c06b2d9dc5e63e9727c9fc07dad227024d6c1"
+    },
+    {
+      "path": "src/vocab_cache.cpp",
+      "sha256": "3bb314a61c6d3a0aa5dadd8536ed434266afa3cd94db42d1646c5fc4f6f9b55e"
+    },
+    {
+      "path": "src/joystick_navigation.h",
+      "sha256": "2b546ac5dc97cb1c74cf68f1ee9767f5a6cf11ef91ead0299fc00d60d80839fe"
+    },
+    {
+      "path": "src/product_locale.h",
+      "sha256": "173ff774f101c6ea50da95adfd1484429a425fde5eb891856b8275de0ec3d882"
+    },
+    {
+      "path": "platformio.ini",
+      "sha256": "2c8db4b5fb66d18ea4739f23b893067f6d5ed266bf627221fa455eb5bed35999"
+    },
+    {
+      "path": "lib/lua-5.4.9/src/lua.h",
+      "sha256": "06138352a12f0710bc214eb3a2e134889979cadc9a7a761a4e43dafa926419af"
+    },
+    {
+      "path": "lib/lua-5.4.9/src/luaconf.h",
+      "sha256": "66a513752af023f50baaf841a140417c9231bb6e43dbfa4f0f014b9df8c836b9"
+    }
+  ],
+  "note": "Fingerprints identify audited implementation; firmware source/binary is not included or relicensed."
+}

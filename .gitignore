@@ -1,0 +1,30 @@
+# Reviewed public docs, explicit developer kit and versioned download only.
+/*
+!/.gitignore
+!/.gitattributes
+!/README.md
+!/QUICK_START.md
+!/LUA_GAMES.md
+!/LIMITATIONS.md
+!/AGENTS.md
+!/developer-kit/
+!/developer-kit/**
+!/downloads/
+/downloads/*
+!/downloads/uncle-s3-lua-kit-0.1.0.zip
+!/downloads/SHA256SUMS.txt
+!/images/
+/images/*
+!/images/uncle-s3-front.jpg
+
+# Local work/products/cache must not enter the SDK or its source repository.
+**/__pycache__/
+**/*.pyc
+/developer-kit/projects/
+/developer-kit/dist/
+/developer-kit/.venv/
+**/save.dat
+**/save.bak
+**/progress.log
+**/progress.bak
+**/.env

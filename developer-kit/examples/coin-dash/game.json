@@ -1,0 +1,8 @@
+{
+  "id": "coin-dash",
+  "title": "Coin Dash",
+  "api": 1,
+  "orientation": "landscape",
+  "entry": "main.lua",
+  "assets": "assets.bvp"
+}

@@ -1,0 +1,16 @@
+{
+  "assets": [
+    {
+      "name": "coin",
+      "format": "rgb565",
+      "path": "coin.rgb565",
+      "width": 16,
+      "height": 16
+    },
+    {
+      "name": "collect",
+      "format": "pcm_u8_mono_12k",
+      "path": "collect.wav"
+    }
+  ]
+}

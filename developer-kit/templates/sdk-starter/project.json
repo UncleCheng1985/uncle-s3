@@ -1,0 +1,9 @@
+{
+  "schema": 1,
+  "files": [
+    "game.json",
+    "main.lua",
+    "README.md",
+    "LICENSE.txt"
+  ]
+}

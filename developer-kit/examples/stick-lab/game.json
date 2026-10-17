@@ -1,0 +1,7 @@
+{
+  "id": "stick-lab",
+  "title": "Stick Lab",
+  "api": 1,
+  "orientation": "landscape",
+  "entry": "main.lua"
+}

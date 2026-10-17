@@ -1,0 +1,7 @@
+{
+  "id": "sdk-starter",
+  "title": "SDK Starter",
+  "api": 1,
+  "orientation": "landscape",
+  "entry": "main.lua"
+}

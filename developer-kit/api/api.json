@@ -1,0 +1,881 @@
+{
+  "schema": 1,
+  "lua": "5.4.9 / LUA_32BITS=1 (int32, float32)",
+  "api": 1,
+  "firmware": "0.2.0-intl-preview.9 + jazz-maintenance patch, ESP32-S3 Joystick v0.2",
+  "functions": [
+    {
+      "name": "gfx.clear",
+      "parameters": [
+        {
+          "name": "color",
+          "type": "integer",
+          "description": "RGB 0xRRGGBB, use 0..0xFFFFFF; low 24 bits are used."
+        }
+      ],
+      "returns": [],
+      "notes": "Fills the entire persistent canvas and marks it dirty. Expensive every frame; prefer local redraws.",
+      "example": "gfx.clear(0x101828)",
+      "status": "public"
+    },
+    {
+      "name": "gfx.rect",
+      "parameters": [
+        {
+          "name": "x",
+          "type": "integer",
+          "description": "Top-left x; integer logical pixel, clipped to canvas."
+        },
+        {
+          "name": "y",
+          "type": "integer",
+          "description": "Top-left y; integer logical pixel, clipped to canvas."
+        },
+        {
+          "name": "w",
+          "type": "integer",
+          "description": "Width in pixels; <=0 draws nothing."
+        },
+        {
+          "name": "h",
+          "type": "integer",
+          "description": "Height in pixels; <=0 draws nothing."
+        },
+        {
+          "name": "color",
+          "type": "integer",
+          "description": "RGB 0xRRGGBB, use 0..0xFFFFFF; low 24 bits are used."
+        }
+      ],
+      "returns": [],
+      "notes": "Filled rectangle; clips to canvas. Keep coordinate arithmetic within signed 32-bit; dimensions near screen size.",
+      "example": "gfx.rect(20, 80, 32, 32, 0x36D6A0)",
+      "status": "public"
+    },
+    {
+      "name": "gfx.round_rect",
+      "parameters": [
+        {
+          "name": "x",
+          "type": "integer",
+          "description": "Top-left x; integer logical pixel, clipped to canvas."
+        },
+        {
+          "name": "y",
+          "type": "integer",
+          "description": "Top-left y; integer logical pixel, clipped to canvas."
+        },
+        {
+          "name": "w",
+          "type": "integer",
+          "description": "Width in pixels; <=0 draws nothing."
+        },
+        {
+          "name": "h",
+          "type": "integer",
+          "description": "Height in pixels; <=0 draws nothing."
+        },
+        {
+          "name": "radius",
+          "type": "integer",
+          "description": "0..64; further clamped to half the smaller dimension."
+        },
+        {
+          "name": "color",
+          "type": "integer",
+          "description": "RGB 0xRRGGBB, use 0..0xFFFFFF; low 24 bits are used."
+        }
+      ],
+      "returns": [],
+      "notes": "Filled rounded rectangle. Invalid radius raises an error.",
+      "example": "gfx.round_rect(20, 80, 80, 48, 8, 0x36D6A0)",
+      "status": "public"
+    },
+    {
+      "name": "gfx.text",
+      "parameters": [
+        {
+          "name": "text",
+          "type": "string",
+          "description": "At most 80 UTF-8 BYTES (not characters); avoid NUL and newlines."
+        },
+        {
+          "name": "x",
+          "type": "integer",
+          "description": "Top-left x; integer logical pixel, clipped to canvas."
+        },
+        {
+          "name": "y",
+          "type": "integer",
+          "description": "Top-left y; integer logical pixel, clipped to canvas."
+        },
+        {
+          "name": "color",
+          "type": "integer",
+          "description": "RGB 0xRRGGBB, use 0..0xFFFFFF; low 24 bits are used."
+        }
+      ],
+      "returns": [],
+      "notes": "Fixed 5x7 glyphs drawn at 2x, 12px advance and 14px height. Only ASCII letters/digits/space; lowercase becomes uppercase; other glyphs show a question mark. No wrapping, scaling parameter, font loading or newline layout.",
+      "example": "gfx.text(\"Hello\", 20, 20, 0xFFFFFF)",
+      "status": "public"
+    },
+    {
+      "name": "gfx.text_utf8",
+      "parameters": [
+        {
+          "name": "text",
+          "type": "string",
+          "description": "At most 192 UTF-8 BYTES (not characters); avoid NUL and newlines."
+        },
+        {
+          "name": "x",
+          "type": "integer",
+          "description": "Top-left x; integer logical pixel, clipped to canvas."
+        },
+        {
+          "name": "y",
+          "type": "integer",
+          "description": "Top-left y; integer logical pixel, clipped to canvas."
+        },
+        {
+          "name": "color",
+          "type": "integer",
+          "description": "RGB 0xRRGGBB, use 0..0xFFFFFF; low 24 bits are used."
+        }
+      ],
+      "returns": [],
+      "notes": "Existing 16px bitmap font. No wrapping, scaling parameter, font loading or newline layout. UTF-8 decoding does not imply all-language font coverage; missing compiled glyphs are skipped with spacing.",
+      "example": "gfx.text_utf8(\"Hello\", 20, 20, 0xFFFFFF)",
+      "status": "public"
+    },
+    {
+      "name": "gfx.text_medium",
+      "parameters": [
+        {
+          "name": "text",
+          "type": "string",
+          "description": "At most 192 UTF-8 BYTES (not characters); avoid NUL and newlines."
+        },
+        {
+          "name": "x",
+          "type": "integer",
+          "description": "Top-left x; integer logical pixel, clipped to canvas."
+        },
+        {
+          "name": "y",
+          "type": "integer",
+          "description": "Top-left y; integer logical pixel, clipped to canvas."
+        },
+        {
+          "name": "color",
+          "type": "integer",
+          "description": "RGB 0xRRGGBB, use 0..0xFFFFFF; low 24 bits are used."
+        }
+      ],
+      "returns": [],
+      "notes": "Existing 24px bitmap font. No wrapping, scaling parameter, font loading or newline layout. UTF-8 decoding does not imply all-language font coverage; missing compiled glyphs are skipped with spacing.",
+      "example": "gfx.text_medium(\"Hello\", 20, 20, 0xFFFFFF)",
+      "status": "public"
+    },
+    {
+      "name": "gfx.text_big",
+      "parameters": [
+        {
+          "name": "text",
+          "type": "string",
+          "description": "At most 96 UTF-8 BYTES (not characters); avoid NUL and newlines."
+        },
+        {
+          "name": "x",
+          "type": "integer",
+          "description": "Top-left x; integer logical pixel, clipped to canvas."
+        },
+        {
+          "name": "y",
+          "type": "integer",
+          "description": "Top-left y; integer logical pixel, clipped to canvas."
+        },
+        {
+          "name": "color",
+          "type": "integer",
+          "description": "RGB 0xRRGGBB, use 0..0xFFFFFF; low 24 bits are used."
+        }
+      ],
+      "returns": [],
+      "notes": "Existing 24px bitmap font at 2x (48px). No wrapping, scaling parameter, font loading or newline layout. UTF-8 decoding does not imply all-language font coverage; missing compiled glyphs are skipped with spacing.",
+      "example": "gfx.text_big(\"Hello\", 20, 20, 0xFFFFFF)",
+      "status": "public"
+    },
+    {
+      "name": "gfx.text_width",
+      "parameters": [
+        {
+          "name": "text",
+          "type": "string",
+          "description": "At most 192 UTF-8 bytes."
+        },
+        {
+          "name": "size",
+          "type": "integer",
+          "description": "Exactly 16, 24 or 48."
+        }
+      ],
+      "returns": [
+        "integer"
+      ],
+      "notes": "Returns the width using matching built-in UTF-8 font advances; not the fixed gfx.text font. Use it to wrap/truncate in Lua.",
+      "example": "local w = gfx.text_width(\"Hello\", 24)",
+      "status": "public"
+    },
+    {
+      "name": "gfx.blit",
+      "parameters": [
+        {
+          "name": "handle",
+          "type": "integer",
+          "description": "Opaque live handle returned by asset.image or asset.sound; never invent a number."
+        },
+        {
+          "name": "x",
+          "type": "integer",
+          "description": "Top-left x; integer logical pixel, clipped to canvas."
+        },
+        {
+          "name": "y",
+          "type": "integer",
+          "description": "Top-left y; integer logical pixel, clipped to canvas."
+        }
+      ],
+      "returns": [],
+      "notes": "Draws frame ZERO of an image at native frame dimensions, not necessarily the full sprite sheet; clips; uses alpha if packed. Wrong handle/error raises.",
+      "example": "local image = asset.image(\"coin\"); gfx.blit(image, 20, 80)",
+      "status": "public"
+    },
+    {
+      "name": "gfx.blit_clean",
+      "parameters": [
+        {
+          "name": "handle",
+          "type": "integer",
+          "description": "Opaque live handle returned by asset.image or asset.sound; never invent a number."
+        },
+        {
+          "name": "x",
+          "type": "integer",
+          "description": "Top-left x; integer logical pixel, clipped to canvas."
+        },
+        {
+          "name": "y",
+          "type": "integer",
+          "description": "Top-left y; integer logical pixel, clipped to canvas."
+        }
+      ],
+      "returns": [],
+      "notes": "Same frame-zero drawing but does NOT invalidate. Call gfx.invalidate for the affected region before presentation. Advanced batching only.",
+      "example": "gfx.blit_clean(image, 20, 80); gfx.invalidate(20, 80, 16, 16)",
+      "status": "public"
+    },
+    {
+      "name": "gfx.blit_frame",
+      "parameters": [
+        {
+          "name": "handle",
+          "type": "integer",
+          "description": "Opaque live handle returned by asset.image or asset.sound; never invent a number."
+        },
+        {
+          "name": "frame",
+          "type": "integer",
+          "description": "Zero-based 0..frameCount-1, also <=65535; row-major across sheet."
+        },
+        {
+          "name": "x",
+          "type": "integer",
+          "description": "Top-left x; integer logical pixel, clipped to canvas."
+        },
+        {
+          "name": "y",
+          "type": "integer",
+          "description": "Top-left y; integer logical pixel, clipped to canvas."
+        }
+      ],
+      "returns": [],
+      "notes": "Uses packed frameWidth/frameHeight. No runtime resizing/rotation. Invalid frame raises.",
+      "example": "gfx.blit_frame(image, 0, 20, 80)",
+      "status": "public"
+    },
+    {
+      "name": "gfx.invalidate",
+      "parameters": [
+        {
+          "name": "x",
+          "type": "integer",
+          "description": "Top-left x; integer logical pixel, clipped to canvas."
+        },
+        {
+          "name": "y",
+          "type": "integer",
+          "description": "Top-left y; integer logical pixel, clipped to canvas."
+        },
+        {
+          "name": "w",
+          "type": "integer",
+          "description": "Width in pixels; <=0 draws nothing."
+        },
+        {
+          "name": "h",
+          "type": "integer",
+          "description": "Height in pixels; <=0 draws nothing."
+        }
+      ],
+      "returns": [],
+      "notes": "Marks modified canvas region for next normal presentation; drawing is not performed. Dirty regions may merge or fall back to full canvas.",
+      "example": "gfx.invalidate(20, 80, 16, 16)",
+      "status": "public"
+    },
+    {
+      "name": "gfx.hold_present",
+      "parameters": [
+        {
+          "name": "hold",
+          "type": "boolean",
+          "description": "true to suppress normal end-of-update presentation; false to resume."
+        }
+      ],
+      "returns": [],
+      "notes": "Lua updates and drawing continue while held; remember to release. This is not sleep, threading or a pause API.",
+      "example": "gfx.hold_present(false)",
+      "status": "public"
+    },
+    {
+      "name": "gfx.restore",
+      "parameters": [
+        {
+          "name": "handle",
+          "type": "integer",
+          "description": "Opaque live handle returned by asset.image or asset.sound; never invent a number."
+        },
+        {
+          "name": "x",
+          "type": "integer",
+          "description": "Top-left x; integer logical pixel, clipped to canvas."
+        },
+        {
+          "name": "y",
+          "type": "integer",
+          "description": "Top-left y; integer logical pixel, clipped to canvas."
+        },
+        {
+          "name": "w",
+          "type": "integer",
+          "description": "Positive width; zero/negative raises."
+        },
+        {
+          "name": "h",
+          "type": "integer",
+          "description": "Positive height; zero/negative raises."
+        }
+      ],
+      "returns": [],
+      "notes": "Copies the same x/y region from a full opaque RGB565 background image, not a sprite placed at x/y. Positive w/h required; clips to image/canvas. Other formats raise.",
+      "example": "gfx.restore(background, 20, 80, 32, 32)",
+      "status": "public"
+    },
+    {
+      "name": "data.size",
+      "parameters": [
+        {
+          "name": "path",
+          "type": "string",
+          "description": "Game-relative UTF-8 path 1..32 bytes; no leading slash, backslash, controls, empty/./.. segments. Read-only under /Games/<id>/. SDK uses stricter portable ASCII."
+        }
+      ],
+      "returns": [
+        "integer|nil"
+      ],
+      "notes": "File length in bytes; nil on absent/unreadable/directory/unsafe path. No file handle returned.",
+      "example": "local size = data.size(\"data/message.txt\")",
+      "status": "public"
+    },
+    {
+      "name": "data.read",
+      "parameters": [
+        {
+          "name": "path",
+          "type": "string",
+          "description": "Game-relative UTF-8 path 1..32 bytes; no leading slash, backslash, controls, empty/./.. segments. Read-only under /Games/<id>/. SDK uses stricter portable ASCII."
+        },
+        {
+          "name": "offset",
+          "type": "integer",
+          "description": "Zero-based nonnegative byte offset; representable on device (signed int32)."
+        },
+        {
+          "name": "count",
+          "type": "integer",
+          "description": "0..512; offset+count must be <= file size."
+        }
+      ],
+      "returns": [
+        "string|nil"
+      ],
+      "notes": "Binary-safe exact string; missing/unsafe path => nil; out-of-range/seek/read failure raises. Not an unbounded file reader; avoid reading entire assets into Lua.",
+      "example": "local text = data.read(\"data/message.txt\", 0, 5)",
+      "status": "public"
+    },
+    {
+      "name": "asset.image",
+      "parameters": [
+        {
+          "name": "name",
+          "type": "string",
+          "description": "1..23 ASCII characters [a-z0-9_-], matching an entry in the manifest assets BVP1."
+        }
+      ],
+      "returns": [
+        "integer"
+      ],
+      "notes": "Loads/checks image payload and returns opaque handle; missing/wrong type/cache/CRC failure raises. Images are reference-counted; sounds pinned until exit. Cache shared: 32 slots / 1.5MiB; sound subset <=512KiB.",
+      "example": "local image = asset.image(\"coin\")",
+      "status": "public"
+    },
+    {
+      "name": "asset.sound",
+      "parameters": [
+        {
+          "name": "name",
+          "type": "string",
+          "description": "1..23 ASCII characters [a-z0-9_-], matching an entry in the manifest assets BVP1."
+        }
+      ],
+      "returns": [
+        "integer"
+      ],
+      "notes": "Loads/checks sound payload and returns opaque handle; missing/wrong type/cache/CRC failure raises. Images are reference-counted; sounds pinned until exit. Cache shared: 32 slots / 1.5MiB; sound subset <=512KiB.",
+      "example": "local sound = asset.sound(\"collect\")",
+      "status": "public"
+    },
+    {
+      "name": "asset.release",
+      "parameters": [
+        {
+          "name": "handle",
+          "type": "integer",
+          "description": "Opaque live handle returned by asset.image or asset.sound; never invent a number."
+        }
+      ],
+      "returns": [
+        "boolean"
+      ],
+      "notes": "False for invalid/stale handle. Images decrement refs/free on last release. Sounds return true but remain pinned until game exit to protect mixer memory. Do not retain/reuse a released image handle.",
+      "example": "local released = asset.release(image)",
+      "status": "public"
+    },
+    {
+      "name": "asset.info",
+      "parameters": [
+        {
+          "name": "handle",
+          "type": "integer",
+          "description": "Opaque live handle returned by asset.image or asset.sound; never invent a number."
+        }
+      ],
+      "returns": [
+        "integer",
+        "integer",
+        "integer",
+        "integer"
+      ],
+      "notes": "Image handles ONLY: returns full image width, height, frame width, frame height (in that order); sound handle raises.",
+      "example": "local w, h, fw, fh = asset.info(image)",
+      "status": "public"
+    },
+    {
+      "name": "audio.play",
+      "parameters": [
+        {
+          "name": "handle",
+          "type": "integer",
+          "description": "Opaque live handle returned by asset.image or asset.sound; never invent a number."
+        },
+        {
+          "name": "volume",
+          "type": "integer?",
+          "description": "Optional 0..100, default 100; relative gain also follows system volume."
+        }
+      ],
+      "returns": [
+        "boolean"
+      ],
+      "notes": "One-shot. Sound handle required; false if mixer unavailable/paused/unhealthy. Four voices; full mixer steals oldest non-loop voice, or slot zero if every voice loops. No individual voice ID/status. Pack containing sounds starts mixer at game load. No MP3 decoding API.",
+      "example": "local accepted = audio.play(sound, 60)",
+      "status": "public"
+    },
+    {
+      "name": "audio.loop",
+      "parameters": [
+        {
+          "name": "handle",
+          "type": "integer",
+          "description": "Opaque live handle returned by asset.image or asset.sound; never invent a number."
+        },
+        {
+          "name": "volume",
+          "type": "integer?",
+          "description": "Optional 0..100, default 100; relative gain also follows system volume."
+        }
+      ],
+      "returns": [
+        "boolean"
+      ],
+      "notes": "Loop. Sound handle required; false if mixer unavailable/paused/unhealthy. Four voices; full mixer steals oldest non-loop voice, or slot zero if every voice loops. No individual voice ID/status. Pack containing sounds starts mixer at game load. No MP3 decoding API.",
+      "example": "local accepted = audio.loop(sound, 60)",
+      "status": "public"
+    },
+    {
+      "name": "audio.play_file",
+      "parameters": [
+        {
+          "name": "path",
+          "type": "string",
+          "description": "Exactly game-relative audio/<name>.wav; lowercase prefix/suffix, 11..32 bytes and safe relative path."
+        },
+        {
+          "name": "volume",
+          "type": "integer?",
+          "description": "Optional 0..100, default 100."
+        }
+      ],
+      "returns": [
+        "boolean"
+      ],
+      "notes": "Returns true when QUEUED, not when playback succeeds. One pending path (later call wins), processed after update/presentation/save. WAV <=256KiB, mono PCM8 unsigned/12kHz OR PCM16 signed LE/48kHz, <=2.5 seconds. Failure is logged [WORD_AUDIO]; prior file-backed sound replaced after successful load. Cannot stream music/MP3.",
+      "example": "local queued = audio.play_file(\"audio/click.wav\", 50)",
+      "status": "public"
+    },
+    {
+      "name": "audio.stop_all",
+      "parameters": [],
+      "returns": [],
+      "notes": "Stops active mixer voices, does not free asset handles. Does not cancel a play_file request still queued earlier in the same update.",
+      "example": "audio.stop_all()",
+      "status": "public"
+    },
+    {
+      "name": "input.direction",
+      "parameters": [],
+      "returns": [
+        "\"left\"|\"right\"|\"up\"|\"down\"|nil"
+      ],
+      "notes": "Current held digital direction or nil when neutral; no analog axes, diagonals or confirm state. Portrait is already remapped; do not rotate directions again.",
+      "example": "local held = input.direction()",
+      "status": "public"
+    },
+    {
+      "name": "input.pressed",
+      "parameters": [],
+      "returns": [
+        "\"left\"|\"right\"|\"up\"|\"down\"|\"confirm\"|nil"
+      ],
+      "notes": "Consumes ONE queued edge per call, not a state. Queue length four; directions use newest final slot on overflow; confirm drops when full. No release events or auto-repeat for held direction. Drain with a bounded loop (max four). Startup/resume waits for neutral.",
+      "example": "local edge = input.pressed()",
+      "status": "public"
+    },
+    {
+      "name": "input.serial",
+      "parameters": [],
+      "returns": [
+        "integer"
+      ],
+      "notes": "Input change counter for direction transitions and accepted confirm; not serial-port data. Changes may exceed queue entries. Reset at game start, wraps; not a high-precision timer.",
+      "example": "local change = input.serial()",
+      "status": "public"
+    },
+    {
+      "name": "system.time_ms",
+      "parameters": [],
+      "returns": [
+        "integer"
+      ],
+      "notes": "Device uptime from millis(), includes POWER pause time; underlying uint32 wraps ~49.7 days, returned through signed 32-bit Lua integer (~24.9 day sign boundary). Use update dt for gameplay; short deltas with wrap arithmetic only. Not Unix time.",
+      "example": "local uptime = system.time_ms()",
+      "status": "public"
+    },
+    {
+      "name": "system.day",
+      "parameters": [],
+      "returns": [
+        "integer"
+      ],
+      "notes": "0 before valid clock (Unix timestamp <2024-01-01); otherwise floor((unixSeconds+8*3600)/86400), fixed UTC+8 day number. Not locale-aware or guaranteed available. No set/sync API.",
+      "example": "local day = system.day(); if day == 0 then print(\"No date\") end",
+      "status": "public"
+    },
+    {
+      "name": "system.exit",
+      "parameters": [],
+      "returns": [],
+      "notes": "Requests clean exit handled by host after update; it does not abort the current Lua function. Return immediately. No shutdown/menu/settings APIs.",
+      "example": "system.exit(); return",
+      "status": "public"
+    },
+    {
+      "name": "storage.get",
+      "parameters": [
+        {
+          "name": "key",
+          "type": "string",
+          "description": "1..24 ASCII letters/digits/_/-."
+        },
+        {
+          "name": "default",
+          "type": "integer?",
+          "description": "Fallback integer, default 0."
+        }
+      ],
+      "returns": [
+        "integer"
+      ],
+      "notes": "Per-project integer store, cached in memory, 16 keys total. Missing key returns default. Invalid key raises.",
+      "example": "local best = storage.get(\"best\", 0)",
+      "status": "public"
+    },
+    {
+      "name": "storage.set",
+      "parameters": [
+        {
+          "name": "key",
+          "type": "string",
+          "description": "1..24 ASCII letters/digits/_/-."
+        },
+        {
+          "name": "value",
+          "type": "integer",
+          "description": "Signed int32 -2147483648..2147483647."
+        }
+      ],
+      "returns": [],
+      "notes": "Queue/update key; 17th key raises. Writes coalesced about every 2s and on normal pause/exit; no immediate durable-success return. [GAME_SAVE] okay=0 reports failure. No key deletion. Never save every frame. ID determines /Games/<id>/save.dat; preserve on updates.",
+      "example": "storage.set(\"best\", 12)",
+      "status": "public"
+    },
+    {
+      "name": "storage.word_get",
+      "parameters": [
+        {
+          "name": "id",
+          "type": "string",
+          "description": "2..48 lowercase ASCII letters/digits/hyphens."
+        }
+      ],
+      "returns": [
+        "integer"
+      ],
+      "notes": "Advanced per-project hashed progress.log store: missing =>0, values positive int32. Not cross-project shared. Allocates memory proportional to entries, up to32768; avoid for ordinary games. Log limit4MiB, no deletion API.",
+      "example": "local value = storage.word_get(\"item-01\")",
+      "status": "advanced"
+    },
+    {
+      "name": "storage.word_set",
+      "parameters": [
+        {
+          "name": "id",
+          "type": "string",
+          "description": "2..48 lowercase ASCII letters/digits/hyphens."
+        },
+        {
+          "name": "value",
+          "type": "integer",
+          "description": "1..2147483647 (zero/negative rejected)."
+        }
+      ],
+      "returns": [],
+      "notes": "Advanced append queue: max32 distinct pending IDs per update, flushed after update/on pause/exit. Memory/write failures may terminate game. Use storage.set for small scores. No included vocabulary content.",
+      "example": "storage.word_set(\"item-01\", 1)",
+      "status": "advanced"
+    },
+    {
+      "name": "vocab.open",
+      "parameters": [
+        {
+          "name": "path",
+          "type": "string",
+          "description": "Game-relative UTF-8 path 1..32 bytes; no leading slash, backslash, controls, empty/./.. segments. Read-only under /Games/<id>/. SDK uses stricter portable ASCII."
+        },
+        {
+          "name": "cursor",
+          "type": "integer?",
+          "description": "Optional zero-based cursor, default0; 0..9999 and <pack count."
+        }
+      ],
+      "returns": [
+        "integer|nil"
+      ],
+      "notes": "RESERVED: requires attached internal BVW3 cache owned by beatvocab-study, hidden by international catalog. Do NOT use or adopt that ID in public projects; no word data/authorization supplied. init/top-level opens synchronously and returns count; during update queues open and returns nil; later tick opens/primes, failure stops script.",
+      "example": "-- Reserved only: local count = vocab.open(\"index.bvw\", 0)",
+      "status": "reserved"
+    },
+    {
+      "name": "vocab.state",
+      "parameters": [
+        {
+          "name": "index",
+          "type": "integer",
+          "description": "Zero-based 0..count-1."
+        }
+      ],
+      "returns": [
+        "integer"
+      ],
+      "notes": "RESERVED: requires attached internal BVW3 cache owned by beatvocab-study, hidden by international catalog. Do NOT use or adopt that ID in public projects; no word data/authorization supplied. Returns cached packed int32 state (0 unseen). Invalid/unattached index raises.",
+      "example": "-- Reserved only: local value = vocab.state(0)",
+      "status": "reserved"
+    },
+    {
+      "name": "vocab.set",
+      "parameters": [
+        {
+          "name": "index",
+          "type": "integer",
+          "description": "Zero-based 0..count-1."
+        },
+        {
+          "name": "value",
+          "type": "integer",
+          "description": "Positive int32 encoded state."
+        }
+      ],
+      "returns": [],
+      "notes": "RESERVED: requires attached internal BVW3 cache owned by beatvocab-study, hidden by international catalog. Do NOT use or adopt that ID in public projects; no word data/authorization supplied. Appends progress synchronously before cached update; failure raises. Learning encoding uses 1+round*8+level with round1..1000000 and level0..5.",
+      "example": "-- Reserved only: vocab.set(0, 9)",
+      "status": "reserved"
+    },
+    {
+      "name": "vocab.read",
+      "parameters": [
+        {
+          "name": "index",
+          "type": "integer",
+          "description": "Zero-based 0..count-1."
+        }
+      ],
+      "returns": [
+        "string"
+      ],
+      "notes": "RESERVED: requires attached internal BVW3 cache owned by beatvocab-study, hidden by international catalog. Do NOT use or adopt that ID in public projects; no word data/authorization supplied. Raw indexed record bytes in a string (bounded record buffer2048); no parsed table; read failure raises.",
+      "example": "-- Reserved only: local record = vocab.read(0)",
+      "status": "reserved"
+    },
+    {
+      "name": "vocab.info",
+      "parameters": [],
+      "returns": [
+        "integer",
+        "integer",
+        "integer",
+        "integer",
+        "integer"
+      ],
+      "notes": "RESERVED: requires attached internal BVW3 cache owned by beatvocab-study, hidden by international catalog. Do NOT use or adopt that ID in public projects; no word data/authorization supplied. Returns count, windowFirst, windowAfter(exclusive), loadedBytes, windowBytes. Unattached raises.",
+      "example": "-- Reserved only: local n, first, after, loaded, size = vocab.info()",
+      "status": "reserved"
+    },
+    {
+      "name": "vocab.ready",
+      "parameters": [],
+      "returns": [
+        "integer|nil"
+      ],
+      "notes": "RESERVED: requires attached internal BVW3 cache owned by beatvocab-study, hidden by international catalog. Do NOT use or adopt that ID in public projects; no word data/authorization supplied. Pack count when async selection is ready and attached, otherwise nil.",
+      "example": "-- Reserved only: local n = vocab.ready()",
+      "status": "reserved"
+    },
+    {
+      "name": "vocab.learned",
+      "parameters": [
+        {
+          "name": "blockedBits",
+          "type": "string",
+          "description": "Empty string or binary bitmap exactly ceil(count/8) bytes; bit i%8 set excludes zero-based entry i (LSB first)."
+        }
+      ],
+      "returns": [
+        "integer"
+      ],
+      "notes": "RESERVED: requires attached internal BVW3 cache owned by beatvocab-study, hidden by international catalog. Do NOT use or adopt that ID in public projects; no word data/authorization supplied. Count valid learned encoded states excluding bitmap entries.",
+      "example": "-- Reserved only: local n = vocab.learned(\"\")",
+      "status": "reserved"
+    },
+    {
+      "name": "vocab.stats",
+      "parameters": [
+        {
+          "name": "blockedBits",
+          "type": "string",
+          "description": "Empty string or binary bitmap exactly ceil(count/8) bytes; bit i%8 set excludes zero-based entry i (LSB first)."
+        },
+        {
+          "name": "round",
+          "type": "integer",
+          "description": "1..1000000, learning round, not current clock time."
+        }
+      ],
+      "returns": [
+        "integer",
+        "integer",
+        "integer",
+        "integer",
+        "integer"
+      ],
+      "notes": "RESERVED: requires attached internal BVW3 cache owned by beatvocab-study, hidden by international catalog. Do NOT use or adopt that ID in public projects; no word data/authorization supplied. Returns learned,due,weak,mastered,firstNew. firstNew is ONE-based or0; state/read indices are zero-based. Due<=round, weak level<=1, mastered level>=4.",
+      "example": "-- Reserved only: local learned, due, weak, mastered, first = vocab.stats(\"\", 1)",
+      "status": "reserved"
+    },
+    {
+      "name": "vocab.review",
+      "parameters": [
+        {
+          "name": "blockedBits",
+          "type": "string",
+          "description": "Empty string or binary bitmap exactly ceil(count/8) bytes; bit i%8 set excludes zero-based entry i (LSB first)."
+        },
+        {
+          "name": "round",
+          "type": "integer",
+          "description": "1..1000000, learning round, not current clock time."
+        },
+        {
+          "name": "dueOnly",
+          "type": "boolean",
+          "description": "Boolean filter: only due states."
+        },
+        {
+          "name": "weakOnly",
+          "type": "boolean",
+          "description": "Boolean filter: only levels0..1."
+        }
+      ],
+      "returns": [
+        "integer[]"
+      ],
+      "notes": "RESERVED: requires attached internal BVW3 cache owned by beatvocab-study, hidden by international catalog. Do NOT use or adopt that ID in public projects; no word data/authorization supplied. Returns up to20 ONE-based entry positions in pack order, excluding blocked/unlearned/invalid states. Subtract1 before state/read.",
+      "example": "-- Reserved only: local positions = vocab.review(\"\", 1, true, false)",
+      "status": "reserved"
+    },
+    {
+      "name": "print",
+      "parameters": [
+        {
+          "name": "...",
+          "type": "any",
+          "description": "Up to first four values; each converted to string and truncated to80 bytes."
+        }
+      ],
+      "returns": [],
+      "notes": "USB debug [GAME_LOG] line, not screen text. No raw UART API. Avoid per-frame spam.",
+      "example": "print(\"Started\", GAME_API_VERSION)",
+      "status": "public"
+    }
+  ]
+}

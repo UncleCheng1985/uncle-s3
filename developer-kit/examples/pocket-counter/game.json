@@ -1,0 +1,7 @@
+{
+  "id": "pocket-counter",
+  "title": "Pocket Counter",
+  "api": 1,
+  "orientation": "landscape",
+  "entry": "main.lua"
+}
