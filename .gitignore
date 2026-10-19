@@ -16,6 +16,9 @@
 !/images/
 /images/*
 !/images/uncle-s3-front.jpg
+!/images/uncle-s3-dino-trail.gif
+!/images/uncle-s3-menu.gif
+!/images/uncle-s3-blockfall.gif
 
 # Local work/products/cache must not enter the SDK or its source repository.
 **/__pycache__/
